@@ -1,0 +1,28 @@
+intf_libs = # Interface dependencies.
+import intf_libs += libxtl%lib{xtl}
+
+if ($config.libxtensor.usexsimd)
+  import intf_libs += libxsimd%lib{xsimd}
+
+lib{xtensor}: hxx{**} $intf_libs
+
+# Build options.
+#
+cxx.poptions =+ "-I$out_base" "-I$src_base"
+
+# Export options.
+#
+lib{xtensor}:
+{
+  cxx.export.poptions = "-I$out_base" "-I$src_base"
+  cxx.export.libs = $intf_libs
+}
+
+# Install into the include/ subdirectory of, say, /usr/include/
+# recreating subdirectories.
+#
+{hxx ixx txx}{*}:
+{
+  install         = include/
+  install.subdirs = true
+}

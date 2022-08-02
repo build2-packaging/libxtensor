@@ -1,0 +1,5 @@
+xtensor-tests
+
+# Testscript output directory (can be symlink).
+#
+test-xtensor-tests

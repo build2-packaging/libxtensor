@@ -1,0 +1,92 @@
+libs =
+import libs += libxtensor%lib{xtensor}
+import libs += doctest%lib{doctest}
+
+import njlib = nlohmann-json%lib{json}
+
+common_base = test_xadaptor_semantic \
+              test_xarray_adaptor \
+              test_xarray \
+              test_xbroadcast \
+              test_xbuilder \
+              test_xcontainer_semantic \
+              test_xeval \
+              test_xexception \
+              test_xexpression \
+              test_xexpression_traits \
+              test_xfunction \
+              test_xfunc_on_xexpression \
+              test_xmultiindex_iterator \
+              test_xiterator \
+              test_xmath \
+              test_xoperation \
+              test_xoptional_assembly \
+              test_xscalar \
+              test_xscalar_semantic \
+              test_xshape \
+              test_xstorage \
+              test_xstrided_view \
+              test_xstrides \
+              test_xtensor \
+              test_xtensor_adaptor \
+              test_xtensor_semantic \
+              test_xview \
+              test_xview_semantic \
+              test_xsimd8
+
+xtensor_tests = test_xaccumulator \
+                test_xadapt \
+                test_xassign \
+                test_xaxis_iterator \
+                test_xaxis_slice_iterator \
+                test_xchunked_array \
+                test_xchunked_view \
+                test_xcomplex \
+                test_xcsv \
+                test_xdatesupport \
+                test_xdynamic_view \
+                test_xfunctor_adaptor \
+                test_xfixed \
+                test_xhistogram \
+                test_xpad \
+                test_xinfo \
+                test_xio \
+                test_xlayout \
+                test_xmanipulation \
+                test_xmasked_view \
+                test_xmath_result_type \
+                test_xnan_functions \
+                test_xnoalias \
+                test_xnorm \
+                test_xnpy \
+                test_xoptional_assembly_adaptor \
+                test_xoptional_assembly_storage \
+                test_xset_operation \
+                test_xrandom \
+                test_xrepeat \
+                test_xsort \
+                test_xsimd \
+                test_xvectorize \
+                test_extended_xmath_interp \
+                test_extended_broadcast_view \
+                test_extended_xmath_reducers \
+                test_extended_xhistogram \
+                test_extended_xsort \
+                test_sfinae \
+                test_xjson \
+                test_xmime \
+                test_xexpression_holder
+
+for t: $common_base $xtensor_tests
+{
+  obj{$t}: cxx{$t} $libs $njlib
+  ./: exe{$t}: hxx{**} cxx{main} obj{$t} $libs $njlib
+}
+
+./: exe{test_xtensor_lib}: obj{main $common_base $xtensor_tests} $libs $njlib
+
+
+cxx.poptions =+ "-I$out_base" "-I$src_base"
+
+if ($cxx.target.system != 'win32-msvc')
+  cxx.libs += -pthread

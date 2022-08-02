@@ -1,0 +1,20 @@
+: 1
+name: libxtensor
+version: 0.24.0-a.0.z
+project: libxtensor
+summary: Build2 package for xtensor - a C++ library meant for numerical analysis with multi-dimensional array expressions.
+license: BSD-3-Clause ; BSD 3-Clause "New" or "Revised" License.
+description-file: README.md
+url: https://github.com/xtensor-stack/xtensor.git
+email: swat.somebug@gmail.com
+#build-error-email: swat.somebug@gmail.com
+depends: * build2 >= 0.15.0
+depends: * bpkg >= 0.15.0
+#depends: libhello ^1.0.0
+
+requires: c++14
+
+depends: libxtl ^0.7.0
+depends: libxsimd ^8.0.3- ? ($config.libxtensor.usexsimd == true)
+
+tests: xtensor-tests == $

@@ -1,0 +1,18 @@
+: 1
+name: xtensor-tests
+version: 0.24.0-a.0.z
+project: libxtensor
+summary: xtensor-tests - Test package for libxtensor
+license: BSD-3-Clause ; BSD 3-Clause "New" or "Revised" License.
+description-file: README.md
+url: https://github.com/xtensor-stack/xtensor.git
+email: swat.somebug@gmail.com
+#build-error-email: swat.somebug@gmail.com
+depends: * build2 >= 0.15.0
+depends: * bpkg >= 0.15.0
+#depends: libhello ^1.0.0
+
+requires: c++14
+
+depends: doctest
+depends: nlohmann-json
