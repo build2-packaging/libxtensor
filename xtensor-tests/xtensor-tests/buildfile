@@ -7,6 +7,7 @@ import njlib = nlohmann-json%lib{json}
 common_base = test_xadaptor_semantic \
               test_xarray_adaptor \
               test_xarray \
+              test_xblockwise_reducer \
               test_xbroadcast \
               test_xbuilder \
               test_xcontainer_semantic \
@@ -21,6 +22,7 @@ common_base = test_xadaptor_semantic \
               test_xmath \
               test_xoperation \
               test_xoptional_assembly \
+              test_xreducer \
               test_xscalar \
               test_xscalar_semantic \
               test_xshape \
@@ -32,6 +34,7 @@ common_base = test_xadaptor_semantic \
               test_xtensor_semantic \
               test_xview \
               test_xview_semantic \
+              test_xutils \
               test_xsimd8
 
 xtensor_tests = test_xaccumulator \
@@ -39,6 +42,7 @@ xtensor_tests = test_xaccumulator \
                 test_xassign \
                 test_xaxis_iterator \
                 test_xaxis_slice_iterator \
+                test_xbuffer_adaptor \
                 test_xchunked_array \
                 test_xchunked_view \
                 test_xcomplex \
@@ -49,6 +53,7 @@ xtensor_tests = test_xaccumulator \
                 test_xfixed \
                 test_xhistogram \
                 test_xpad \
+                test_xindex_view \
                 test_xinfo \
                 test_xio \
                 test_xlayout \
@@ -59,6 +64,7 @@ xtensor_tests = test_xaccumulator \
                 test_xnoalias \
                 test_xnorm \
                 test_xnpy \
+                test_xoptional \
                 test_xoptional_assembly_adaptor \
                 test_xoptional_assembly_storage \
                 test_xset_operation \
@@ -79,12 +85,13 @@ xtensor_tests = test_xaccumulator \
 
 for t: $common_base $xtensor_tests
 {
-  obj{$t}: cxx{$t} $libs $njlib
-  ./: exe{$t}: hxx{**} cxx{main} obj{$t} $libs $njlib
+  ./: exe{$t}: hxx{**} cxx{main} cxx{$t} $libs
 }
 
-./: exe{test_xtensor_lib}: obj{main $common_base $xtensor_tests} $libs $njlib
+exe{test_xjson test_xmime test_xexpression_holder}: $njlib
 
+# Additional dependency on some data files and testscript
+exe{test_xnpy}: files/xnpy_files/file{*py} testscript{test_xnpy}
 
 cxx.poptions =+ "-I$out_base" "-I$src_base"
 

@@ -19,4 +19,5 @@
 #*.png binary
 
 # Allow directory symlinks on Windows
-libxtensor/include/xtensor              symlink=dir
+libxtensor/include/xtensor                                symlink=dir
+xtensor-tests/xtensor-tests/files/xnpy_files              symlink=dir

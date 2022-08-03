@@ -1,0 +1,13 @@
+: RUN-TEST-XNPY
+{
+  +ln -s $src_base/files/ $out_base/
+  env --cwd $out_base -- $* >>~%EOM%
+  %(
+  %.*%
+  %)+
+  %.*SUCCESS!%
+  EOM
+  -rm -f $out_base/files
+
+}
+
