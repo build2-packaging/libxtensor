@@ -95,5 +95,14 @@ exe{test_xnpy}: files/xnpy_files/file{*py} testscript{test_xnpy}
 
 cxx.poptions =+ "-I$out_base" "-I$src_base"
 
+if ($cxx.target.system == 'win32-msvc')
+{
+    if ($cxx.id == 'msvc')
+      cxx.coptions += '/Mp' '/bigobj'
+    elif ($cxx.id == 'clang-msvc')
+      cxx.coptions += '/bigobj'
+}
+
 if ($cxx.target.system != 'win32-msvc')
   cxx.libs += -pthread
+
