@@ -2,3 +2,5 @@
 location: libxtensor/
 :
 location: xtensor-tests/
+:
+location: xtensor-benchmark/

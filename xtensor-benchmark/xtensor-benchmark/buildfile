@@ -1,0 +1,16 @@
+libs =
+import libs += libxtensor%lib{xtensor}
+import libs += libxsimd%lib{xsimd}
+import libs += google-benchmark%lib{benchmark}
+
+exe{xtensor-benchmark}: {hxx ixx txx cxx}{**} $libs
+
+cxx.poptions =+ "-I$out_root" "-I$src_root" "-DXTENSOR_USE_XSIMD=1"
+
+if ($cxx.target.system == 'win32-msvc')
+{
+    if ($cxx.id == 'msvc')
+      cxx.coptions += '/EHsc' '/MP' '/bigobj'
+    elif ($cxx.id == 'clang-msvc')
+      cxx.coptions += '/EHsc' '/bigobj'
+}
