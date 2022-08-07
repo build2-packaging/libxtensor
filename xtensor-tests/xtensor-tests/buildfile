@@ -98,7 +98,7 @@ cxx.poptions =+ "-I$out_base" "-I$src_base"
 if ($cxx.target.system == 'win32-msvc')
 {
     if ($cxx.id == 'msvc')
-      cxx.coptions += '/Mp' '/bigobj'
+      cxx.coptions += '/MP' '/bigobj'
     elif ($cxx.id == 'clang-msvc')
       cxx.coptions += '/bigobj'
 }
